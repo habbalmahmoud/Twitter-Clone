@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:twitter__clone/constants/constants.dart';
+import 'package:twitter__clone/features/tweet/views/create_tweet_view.dart';
 import 'package:twitter__clone/theme/pallete.dart';
 
 class HomeView extends StatefulWidget {
@@ -26,6 +27,10 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  void onCreateTweet() {
+    Navigator.push(context, CreateTweetScreen.route());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +40,7 @@ class _HomeViewState extends State<HomeView> {
         children: UIConstants.bottomTapBarPages,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: onCreateTweet,
         shape: const CircleBorder(),
         child: const Icon(
           Icons.add,

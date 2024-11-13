@@ -31,7 +31,7 @@ class AuthApi implements IAuthAPI {
   Future<model.User?> currentUserAccount() async {
     try {
       return await _account.get();
-    } on AppwriteException catch (e) {
+    } on AppwriteException {
       return null;
     } catch (e) {
       return null;
@@ -45,7 +45,7 @@ class AuthApi implements IAuthAPI {
   }) async {
     try {
       final account = await _account.create(
-        userId: 'unique()',
+        userId: ID.unique(),
         email: email,
         password: password,
       );

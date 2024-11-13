@@ -1,7 +1,8 @@
 class AppwriteConstants {
-  static const String databaseId = '671438f6003724bdb154';
-  static const String projectId = '6713a68600105e5c118f';
-  static const String endPoint = 'http://192.168.1.106:80/v1';
+  static const String databaseId = '672f639c001ebe6f6177';
+  static const String projectId = '672f628100173257d13f';
+  static const String endPoint = 'https://cloud.appwrite.io/v1';
 
-  static const String usersCollectionId = '6728ef9f00159f7bb2cd';
+  static const String usersCollectionId = '672f63ba001ae252ba83';
+  static const String tweetsCollectionId = '6734cb71001008f2146f';
 }

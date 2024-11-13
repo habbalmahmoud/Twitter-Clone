@@ -15,9 +15,20 @@ final authContollerProvider = StateNotifierProvider<AuthContoller, bool>((ref) {
   );
 });
 
+final currentUserDetailsProvider = FutureProvider((ref) {
+  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
+  final userDetails = ref.watch(userDetailsProvider(currentUserId));
+  return userDetails.value;
+});
+
+final userDetailsProvider = FutureProvider.family((ref, String uid) {
+  final authContoller = ref.watch(authContollerProvider.notifier);
+  return authContoller.getUserData(uid);
+});
+
 final currentUserAccountProvider = FutureProvider((ref) async {
   final authContoller = ref.watch(authContollerProvider.notifier);
-  return authContoller.currentUserAccount();
+  return authContoller.currentUser();
 });
 
 class AuthContoller extends StateNotifier<bool> {
@@ -30,7 +41,7 @@ class AuthContoller extends StateNotifier<bool> {
         _userApi = userApi,
         super(false);
 
-  Future<model.User?> currentUserAccount() => _authApi.currentUserAccount();
+  Future<model.User?> currentUser() => _authApi.currentUserAccount();
 
   void signUp({
     required String email,
@@ -53,12 +64,12 @@ class AuthContoller extends StateNotifier<bool> {
           following: const [],
           profilePic: '',
           bannerPic: '',
-          uid: '',
+          uid: r.$id,
           bio: '',
           isTwitterBlue: false,
         );
         final res2 = await _userApi.saveUserData(userModel);
-        res2.fold((l) => showSnackBar(context, l.message), (_) {
+        res2.fold((l) => showSnackBar(context, l.message), (r) {
           showSnackBar(context, "Account has been created! Please login.");
           Navigator.push(context, LoginView.route());
         });
@@ -83,5 +94,11 @@ class AuthContoller extends StateNotifier<bool> {
         Navigator.push(context, HomeView.route());
       },
     );
+  }
+
+  Future<UserModel> getUserData(String uid) async {
+    final document = await _userApi.getUserData(uid);
+    final updatedUser = UserModel.fromMap(document.data);
+    return updatedUser;
   }
 }
