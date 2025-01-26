@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:twitter__clone/constants/assets_constants.dart';
+import 'package:twitter__clone/features/explore/view/explore_view.dart';
+import 'package:twitter__clone/features/notifications/view/notification_view.dart';
+import 'package:twitter__clone/features/tweet/widgets/tweet_list.dart';
 import 'package:twitter__clone/theme/pallete.dart';
 
 class UIConstants {
@@ -18,8 +21,8 @@ class UIConstants {
   }
 
   static List<Widget> bottomTapBarPages = [
-    const Text('Feed Screen'),
-    const Text('Search Screen'),
-    const Text('Notification Screen'),
+    TweetList(),
+    ExploreView(),
+    NotificationView(),
   ];
 }
